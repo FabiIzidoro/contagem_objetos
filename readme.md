@@ -77,14 +77,3 @@ python count_objects.py
 ```
 
 ## 📝 Licença
-
-Projeto sob Licença MIT.
-
-## 📧 Contato
-
-Para dúvidas ou sugestões:  
-📧 fabi.izidoro@gmail.com (Exemplo, ajuste se quiser)
-
----
-
-**Desenvolvido com ❤️ por Fabiana Izidoro**
