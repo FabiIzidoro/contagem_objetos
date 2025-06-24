@@ -1,15 +1,118 @@
-# Aula: Contagem de Objetos em Imagens com OpenCV
-🔍 Contagem de Objetos com Visão Computacional Avançada📋 Sobre o ProjetoEste projeto implementa um sistema avançado de contagem de objetos em imagens utilizando técnicas de Visão Computacional e Processamento Digital de Imagens com a biblioteca OpenCV em Python. O objetivo principal é identificar e contar corretamente objetos em diversas condições, mesmo quando possuem diferentes cores, texturas ou estão próximos.A partir de um código base, esta implementação foi aprimorada para:Identificar objetos de forma mais precisa.Reduzir a ocorrência de falsos positivos (contagens erradas de não-objetos).Apresentar visualmente os resultados de forma clara.Salvar todas as imagens processadas para análise.✨ Melhorias ImplementadasAs principais melhorias focaram na robustez do algoritmo para lidar com diferentes cenários:Detecção Otimizada por Tipo de Objeto: Os parâmetros de processamento (como binarização adaptativa, filtros morfológicos e transformada de distância para Watershed) são ajustados dinamicamente com base no tipo de imagem que está sendo processada (por exemplo, chocolates.jpg vs. seeds.png). Isso permite uma contagem precisa para objetos com características visuais muito distintas.Detecção Dupla para Contraste: Implementa uma lógica para identificar eficazmente tanto objetos escuros (em fundos claros) quanto objetos claros (em fundos claros), combinando as máscaras resultantes. Isso é crucial para cenários como sementes de girassol (claras e escuras) ou chocolates variados.Ajuste Fino da Segmentação: Os parâmetros da Transformada de Distância e do algoritmo Watershed foram ajustados iterativamente para garantir que cada objeto seja contado como uma única entidade, evitando sobredetecção (contar um objeto em pedaços) ou subdetecção (perder objetos).Visualização Aprimorada: Os contornos são desenhados com cores variadas para facilitar a distinção visual de cada objeto. Os números da contagem são posicionados para maior clareza.Resumo Detalhado da Execução: Ao final do processamento em lote, é gerado um resumo completo no console (e opcionalmente em uma janela separada se summary_display.py for criado) com as contagens de objetos para a imagem final e para cada máscara intermediária (dark_mask, light_mask, combined_mask, etc.). Isso auxilia na depuração e na compreensão do pipeline.🚀 Tecnologias UtilizadasTécnicas de Processamento de ImagemSuavização Gaussiana: Redução de ruído na imagem.Binarização Adaptativa: Converte imagens para preto e branco com limiares que se ajustam localmente.Detecção de Bordas Canny: Usada para identificar contornos em objetos, especialmente os de baixo contraste.Operações Morfológicas: Abertura (para remover ruídos e separar objetos finos), Dilatação (para expandir áreas brancas) e Fechamento (para preencher pequenos buracos).Transformada de Distância: Cria "picos" nas áreas centrais dos objetos, essenciais para o Watershed.Algoritmo Watershed: Segmenta a imagem, dividindo objetos aglomerados com base nas "sementes" criadas pela transformada de distância.BibliotecasOpenCV (cv2): Biblioteca principal para Visão Computacional.NumPy: Para manipulação eficiente de arrays numéricos (imagens).Argparse: Para gerenciar argumentos de linha de comando.OS: Para interagir com o sistema de arquivos (caminhos, diretórios).📦 InstalaçãoPré-requisitosPython 3.7 ou superiorpip (gerenciador de pacotes Python)Instalação das DependênciasPara instalar as bibliotecas necessárias, execute no seu terminal:pip install -r requirements.txt
-(O requirements.txt será fornecido no repositório.)🔧 Como UsarEstrutura do ProjetoCertifique-se de que a estrutura do seu projeto está organizada da seguinte forma no seu computador:seu_projeto_contagem/
-├── main.py                         # O script principal do projeto
-├── requirements.txt                # Lista de bibliotecas necessárias
-├── README.md                       # Este arquivo de descrição
-├── images/                         # Pasta para suas imagens de entrada
-│   ├── chocolates.jpg              # Exemplo de imagem de chocolate
-│   ├── seeds.png                   # Exemplo de imagem de sementes
-│   └── (outras imagens como gems.jpg, moedas.jpg, etc.)
-└── processed_output/               # Pasta onde os resultados processados serão salvos (será criada automaticamente)
-Execução do CódigoNavegue até a pasta do projeto: Abra seu terminal (ou Prompt de Comando no Windows) e use o comando cd para ir até a pasta seu_projeto_contagem/.cd caminho/para/seu_projeto_contagem
-Execute o script:Para processar as imagens padrão (chocolates.jpg e seeds.png, e outras da lista interna):python main.py
-O script abrirá uma série de janelas exibindo as etapas de processamento e o resultado final para cada imagem. Pressione qualquer tecla em cada janela para fechá-la e passar para a próxima. Ao final, um resumo de todas as contagens será exibido no console (ou em uma janela separada se o arquivo summary_display.py for criado).Para processar uma imagem específica:python main.py images/nome_da_sua_foto.jpg
-Substitua images/nome_da_sua_foto.jpg pelo caminho da imagem que você deseja processar.ResultadosTodas as imagens processadas, incluindo os resultados finais com contornos e as máscaras intermediárias para depuração, serão salvas na pasta processed_output/.🐛 Solução de ProblemasSe a contagem de objetos não estiver correta ou se a segmentação visual não estiver boa:Analise as Máscaras de Depuração: O programa salva várias imagens intermediárias (as máscaras preta e branca) na pasta processed_output/. Inspecioná-las (Dark Objects Mask, Light Objects Mask, Combined Final Mask, Sure Foreground) é crucial para entender em que etapa o algoritmo está falhando (se os objetos não estão sendo binarizados corretamente, se estão com buracos, ou se as "sementes" para o Watershed não estão adequadas).Ajuste os Parâmetros no Código: O arquivo main.py contém uma seção --- Parâmetros Condicionais Baseados no Tipo de Imagem ---. Estes parâmetros foram ajustados para chocolates.jpg e seeds.png. Se você estiver usando outras imagens ou se precisar de mais refinamento, você pode ajustar os valores de variáveis como thresh_block_size_dark, thresh_c_dark, dist_transform_factor, area_thresh, canny_low, canny_high, etc. Experimente alterar um parâmetro por vez e observe o efeito nas máscaras de depuração.📝 LicençaEste projeto está sob a licença MIT. Para mais detalhes, consulte o arquivo LICENSE no repositório.🤝 ContribuiçõesContribuições são bem-vindas! Se você tiver sugestões de melhorias ou quiser reportar um problema, sinta-se à vontade para:Fazer um "fork" do repositório.Criar uma nova "branch" para suas alterações.Implementar suas mudanças.Abrir um "Pull Request" detalhando suas modificações.Desenvolvido com ❤️ usando OpenCV e Python
+📦 contagem_objetos
+Sistema de contagem de objetos em imagens com Visão Computacional em Python, utilizando OpenCV e processamento digital de imagens.
+
+🧩 Funcionalidades
+Processamento de imagens para detectar e contar objetos mesmo em diferentes condições:
+
+Objetos claros e escuros em fundos variados
+
+Cores, texturas e agrupamentos distintos 
+github.com
+
+Segmentação avançada com binarização adaptativa, filtros morfológicos, transformada de distância e algoritmo Watershed 
+github.com
+
+Visualização aprimorada:
+
+Máscaras intermediárias (dark_mask, light_mask, combined_mask, sure_foreground)
+
+Contornos coloridos para cada objeto, com numeração legível 
+github.com
+
+Relatório final com resumo de contagens por imagem, exibido no console (ou janela adicional via summary_display.py) 
+github.com
+
+💾 Tecnologias
+Python 3.7+
+
+OpenCV (cv2)
+
+NumPy
+
+argparse
+
+os 
+github.com
+
+🚀 Instalação
+Clone o repositório:
+
+bash
+Copiar
+Editar
+git clone https://github.com/FabiIzidoro/contagem_objetos.git
+cd contagem_objetos
+Instale as dependências:
+
+bash
+Copiar
+Editar
+pip install -r requirements.txt
+O arquivo requirements.txt já está incluído no repo 
+github.com
+
+▶️ Como usar
+A estrutura local esperada:
+
+less
+Copiar
+Editar
+contagem_objetos/
+├── images/              ← imagens de entrada (ex: chocolates.jpg, seeds.png)
+├── processed_output/    ← onde os resultados são salvos automaticamente
+├── main.py              ← script principal
+├── count_objects.py     ← módulo principal de contagem/sequência de processamento
+├── dependencias.txt
+├── requirements.txt
+└── README.md            ← este arquivo
+Para processar todas as imagens padrões:
+
+bash
+Copiar
+Editar
+python main.py
+Para processar uma imagem específica:
+
+bash
+Copiar
+Editar
+python main.py images/minha_imagem.jpg
+A execução exibe janelas com cada etapa e salva máscaras intermediárias e resultados finais na pasta processed_output/. Pressione qualquer tecla para avançar em cada etapa 
+github.com
+.
+
+🛠️ Parametrização & Ajustes
+As seções de parâmetros condicional por tipo de imagem estão em main.py, com variáveis como:
+
+thresh_block_size_dark, thresh_c_dark
+
+dist_transform_factor, area_thresh
+
+canny_low, canny_high
+
+Ajuste-as conforme necessário se algum cenário específico (ex: moedas, jóias) não estiver sendo detectado corretamente. Verifique as máscaras de depuração em processed_output/ para identificar onde ocorre falha 
+github.com
+.
+
+🐞 Solução de problemas
+Reveja as máscaras de depuração (dark_mask, light_mask, etc.) para entender possíveis falhas.
+
+Modifique os parâmetros uma variável por vez e observe o efeito.
+
+Se necessário, crie/adapte summary_display.py para visualizar o resumo em GUI.
+
+📄 Licença
+MIT License — veja o arquivo LICENSE para mais detalhes 
+github.com
+
+🤝 Contribuições
+Contribuições são bem-vindas! Para contribuir:
+
+Faça um fork do repositório
+
+Crie uma branch com a sua feature ou correção
+
+Implemente e teste suas alterações
+
+Envie um Pull Request descrevendo as mudanças
+
