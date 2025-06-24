@@ -77,3 +77,4 @@ python count_objects.py
 ```
 
 ## 📝 Licença
+Projeto sob Licença MIT.
