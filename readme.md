@@ -1,96 +1,103 @@
 
-# 📦 contagem_objetos
+# 🔍 Contagem Avançada de Objetos com OpenCV - Projeto Melhorado
 
-Sistema de contagem de objetos em imagens com Visão Computacional em Python, utilizando OpenCV e processamento digital de imagens.
+[![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://www.python.org/downloads/)
+[![OpenCV](https://img.shields.io/badge/OpenCV-4.0+-green.svg)](https://opencv.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 🧩 Funcionalidades
+## 📋 Sobre o Projeto
 
-- Processamento de imagens para detectar e contar objetos mesmo em diferentes condições:
-  - Objetos claros e escuros em fundos variados
-  - Cores, texturas e agrupamentos distintos
-- Segmentação avançada com binarização adaptativa, filtros morfológicos, transformada de distância e algoritmo Watershed
-- Visualização aprimorada:
-  - Máscaras intermediárias (dark_mask, light_mask, combined_mask, sure_foreground)
-  - Contornos coloridos para cada objeto, com numeração legível
-- Relatório final com resumo de contagens por imagem, exibido no console (ou janela adicional via `summary_display.py`)
+Este repositório contém a versão melhorada do projeto de **Contagem de Objetos em Imagens** utilizando **Visão Computacional** com a biblioteca **OpenCV**.
 
-## 💾 Tecnologias
+O sistema foi projetado para detectar e contar objetos de diferentes tamanhos, cores e contrastes em diversas imagens.
 
-- Python 3.7+
-- OpenCV (cv2)
-- NumPy
-- argparse
-- os
+## 🎯 Melhorias Implementadas
 
-## 🚀 Instalação
+Em relação à versão inicial, as seguintes melhorias foram feitas:
 
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/FabiIzidoro/contagem_objetos.git
-   cd contagem_objetos
-   ```
-2. Instale as dependências:
-   ```bash
-   pip install -r requirements.txt
-   ```
+✅ Separação do código em módulos (`main.py`, `count_objects.py`)  
+✅ Geração automática de máscaras intermediárias para debug  
+✅ Adição de técnicas de **Watershed** e **Transformada de Distância** para separar objetos próximos  
+✅ Ajuste de parâmetros para melhorar a precisão da contagem  
+✅ Inclusão de imagens de diferentes cenários (chocolates, sementes, moedas, gemas)  
+✅ Criação de um resumo de contagem final por imagem  
+✅ Estruturação de pastas com separação de entrada e saída (`images/`, `processed_output/`)  
+✅ README detalhado com instruções, exemplos e imagens
 
-## ▶️ Como usar
+## 🖼️ Exemplos de Resultados
 
-Estrutura local esperada:
+| Imagem Original | Resultado com Contagem |
+|-----------------|------------------------|
+| ![Chocolates](images/chocolates.jpg) | ![Resultado Chocolates](processed_output/chocolates_resultado.jpg) |
+| ![Sementes](images/seeds.png) | ![Resultado Sementes](processed_output/seeds_resultado.png) |
+
+## 🚀 Tecnologias Utilizadas
+
+- **Python 3.7+**
+- **OpenCV (cv2)**
+- **NumPy**
+
+### Técnicas aplicadas:
+
+- Threshold adaptativo
+- Detecção de bordas (Canny)
+- Operações morfológicas
+- Transformada de distância
+- Watershed
+- Filtros por área mínima
+
+## 📦 Instalação
+
+### Pré-requisitos:
+- Python 3.7 ou superior
+- pip
+
+### Instalação das Dependências:
+```bash
+pip install -r requirements.txt
+```
+
+## 🔧 Como Executar
+
+### Estrutura de Pastas:
+
 ```
 contagem_objetos/
-├── images/              ← imagens de entrada (ex: chocolates.jpg, seeds.png)
-├── processed_output/    ← onde os resultados são salvos automaticamente
-├── main.py              ← script principal
-├── count_objects.py     ← módulo principal de contagem/sequência de processamento
-├── dependencias.txt
-├── requirements.txt
-└── README.md            ← este arquivo
+├── images/               # Imagens de entrada
+├── processed_output/     # Imagens de saída com resultados
+├── main.py               # Script principal
+├── count_objects.py      # Módulo de contagem
+├── requirements.txt      # Dependências do projeto
+└── README.md             # Este arquivo
 ```
 
-Para processar todas as imagens padrões:
+### Executar para todas as imagens:
 ```bash
 python main.py
 ```
 
-Para processar uma imagem específica:
+### Executar para uma imagem específica:
 ```bash
-python main.py images/minha_imagem.jpg
+python main.py images/sua_imagem.jpg
 ```
 
-A execução exibe janelas com cada etapa e salva máscaras intermediárias e resultados finais na pasta `processed_output/`. Pressione qualquer tecla para avançar em cada etapa.
+## 🐛 Possíveis Problemas e Soluções
 
-## 🛠️ Parametrização & Ajustes
+| Problema | Solução |
+|---|---|
+| Objetos pequenos demais sendo ignorados | Reduzir `area_thresh` em `main.py` |
+| Muitos falsos positivos | Aumentar `area_thresh` ou ajustar thresholds |
+| Performance lenta | Reduzir o tamanho das imagens de entrada |
 
-As seções de parâmetros por tipo de imagem estão em `main.py`, com variáveis como:
+## 📝 Licença
 
-- `thresh_block_size_dark`, `thresh_c_dark`
-- `dist_transform_factor`, `area_thresh`
-- `canny_low`, `canny_high`
+Projeto sob Licença MIT.
 
-Ajuste conforme necessário caso algum cenário (ex: moedas, sementes) não esteja sendo detectado corretamente. Verifique as máscaras de depuração em `processed_output/` para entender possíveis falhas.
+## 📧 Contato
 
-## 🐞 Solução de problemas
+Para dúvidas ou sugestões:  
+📧 fabi.izidoro@gmail.com (Exemplo, ajuste se quiser)
 
-1. Reveja as máscaras de depuração (`dark_mask`, `light_mask`, etc.) para entender falhas de segmentação.
-2. Modifique os parâmetros gradualmente e observe os efeitos.
-3. Se quiser, utilize ou adapte o `summary_display.py` para visualizar o resumo da contagem em interface gráfica.
+---
 
-## 📄 Licença
-
-MIT License — veja o arquivo `LICENSE` para mais detalhes.
-
-## 🤝 Contribuições
-
-Contribuições são bem-vindas!
-
-1. Faça um fork do repositório.
-2. Crie uma branch com sua feature ou correção.
-3. Implemente e teste.
-4. Abra um Pull Request.
-
-## 💡 Melhorias futuras sugeridas
-
-- Adição de testes automatizados (pytest)
-- Interface gráfica (Tkinter, PyQT ou similar)
-- Suporte a vídeo ou webcam (contagem em tempo real)
+**Desenvolvido com ❤️ por Fabiana Izidoro**
