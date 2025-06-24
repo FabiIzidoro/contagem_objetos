@@ -71,23 +71,10 @@ contagem_objetos/
 └── README.md             # Este arquivo
 ```
 
-### Executar para todas as imagens:
+### Executar:
 ```bash
-python main.py
+python count_objects.py
 ```
-
-### Executar para uma imagem específica:
-```bash
-python main.py images/sua_imagem.jpg
-```
-
-## 🐛 Possíveis Problemas e Soluções
-
-| Problema | Solução |
-|---|---|
-| Objetos pequenos demais sendo ignorados | Reduzir `area_thresh` em `main.py` |
-| Muitos falsos positivos | Aumentar `area_thresh` ou ajustar thresholds |
-| Performance lenta | Reduzir o tamanho das imagens de entrada |
 
 ## 📝 Licença
 
